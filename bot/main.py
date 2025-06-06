@@ -1,7 +1,10 @@
 import os
 import asyncio
+from dotenv import load_dotenv
 from aiogram import Bot, Dispatcher
 from quote import router
+
+load_dotenv()    
 
 async def main():
     BOT_TOKEN = os.getenv("BOT_TOKEN")
