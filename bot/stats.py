@@ -1,5 +1,4 @@
 import os
-
 import requests
 from aiogram import Router, types
 from aiogram.filters import Command
@@ -12,12 +11,20 @@ async def cmd_stats(message: types.Message):
     prom = os.getenv("PROMETHEUS_URL", "http://prometheus:9090")
     query = "telegram_quote_requests_total"
     url = f"{prom}/api/v1/query?query={query}"
-    resp = requests.get(url, timeout=5).json()
 
-    if resp.get("status") != "success":
-        await message.answer("Could not get stats.")
-        return
+    try:
+        resp = requests.get(url, timeout=5).json()
+    except requests.RequestException:
+        return await message.answer("Could not reach Prometheus.")
 
-    value = resp["data"]["result"][0]["value"][1]
-    count = int(float(value))
-    await message.answer(f"Overall number of /quote calls: {count}")
+    results = resp.get("data", {}).get("result", [])
+    if resp.get("status") != "success" or not results:
+        return await message.answer("No quote stats available yet.")
+
+    value = results[0]["value"][1]
+    try:
+        count = int(float(value))
+    except (ValueError, TypeError):
+        return await message.answer("Got unexpected data format from Prometheus.")
+
+    await message.answer(f"Total `/quote` calls: {count}")
