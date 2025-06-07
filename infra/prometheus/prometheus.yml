@@ -5,4 +5,4 @@ scrape_configs:
   - job_name: "telegram-quote-bot"
     metrics_path: /metrics
     static_configs:
-      - targets: ["bot:8000"]
+      - targets: ["bot:8001"]
