@@ -1,7 +1,9 @@
-# motivation-bot
-search for: @nicorehov_motivationbot in Telegram
-## Description
-A simple Telegram bot that gets a random quote on the command `/quote`.
-Exports Prometheus metrics.
+# motivation-bot  
+Search for **@nicorehov_motivationbot** in Telegram
 
-Other technologies will be added soon.
+## Description  
+- `/quote` → returns a random motivational quote  
+- `/stats` → shows the total number of `/quote` requests  
+Exports Prometheus metrics at `/metrics`.
+
+Other technologies will be added soon.  
