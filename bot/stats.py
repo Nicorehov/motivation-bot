@@ -13,7 +13,7 @@ async def cmd_stats(message: types.Message):
     resp = requests.get(url, timeout=5).json()
 
     if resp["status"] != "success":
-        return await message.answer("Не удалось получить статистику.")
+        return await message.answer("Couldnt get stats.")
 
     value = resp["data"]["result"][0]["value"][1]
-    await message.answer(f"Всего запросов /quote: {int(float(value))}")
+    await message.answer(f"Overall number of requests /quote: {int(float(value))}")
