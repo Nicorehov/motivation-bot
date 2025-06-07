@@ -36,7 +36,10 @@ jobs:
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
             set -e
+            
             cd /home/${{ secrets.SERVER_USER }}/motivation-bot
+            echo "Updating code from GitHub..."
+            git pull origin main
             echo "Pulling new images..."
             docker-compose pull
             echo "Stopping and removing old containers..."
