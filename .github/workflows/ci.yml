@@ -32,6 +32,6 @@ jobs:
       - name: Run tests
         working-directory: bot
         run: |
-          pytest tests --maxfail=1 -q
+          pytest --maxfail=1 -q
 
 
