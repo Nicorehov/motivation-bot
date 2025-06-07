@@ -26,7 +26,7 @@ jobs:
           port: ${{ secrets.SERVER_SSH_PORT }}
           script: |
             set -e
-            cd /home/${{ secrets.SERVER_USER }}/telegram-quote-bot
+            cd /home/${{ secrets.SERVER_USER }}/motivation-bot
             echo "Pulling new image..."
             docker-compose pull
             echo "Recreating containers..."
