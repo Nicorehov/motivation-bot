@@ -1,9 +1,11 @@
-from aiogram import Router, types
-from aiogram.filters import Command
-import requests
 import os
 
+import requests
+from aiogram import Router, types
+from aiogram.filters import Command
+
 router = Router()
+
 
 @router.message(Command("stats"))
 async def cmd_stats(message: types.Message):
@@ -12,8 +14,10 @@ async def cmd_stats(message: types.Message):
     url = f"{prom}/api/v1/query?query={query}"
     resp = requests.get(url, timeout=5).json()
 
-    if resp["status"] != "success":
-        return await message.answer("Couldnt get stats.")
+    if resp.get("status") != "success":
+        await message.answer("Could not get stats.")
+        return
 
     value = resp["data"]["result"][0]["value"][1]
-    await message.answer(f"Overall number of requests /quote: {int(float(value))}")
+    count = int(float(value))
+    await message.answer(f"Overall number of /quote calls: {count}")

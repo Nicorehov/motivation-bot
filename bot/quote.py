@@ -6,7 +6,7 @@ from prometheus_client import Counter
 router = Router()
 
 messages_counter = Counter("telegram_quote_requests_total", 
-                                "Total number of /quote command calls")
+                    "Total number of /quote command calls")
 
 @router.message(Command("quote"))
 async def cmd_quote(message: types.Message):
